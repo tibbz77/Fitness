@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PF Tracker</title>
+  <meta name="theme-color" content="#5b2dd8" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>PF Tracker</h1>
+    <div class="hdr-actions">
+      <button id="addToHome" class="ghost" title="Add to Home Screen" aria-label="Add to Home Screen">➕ Home</button>
+      <button id="copyLast" class="ghost" title="Copy last workout for this plan">📋 Copy Last</button>
+    </div>
+  </header>
+  <div class="helper-note">Tip: Tap <strong>▶ Video</strong> to see how-to. Use <strong>Alternates</strong> if the gym is busy. Each set has quick ± for weight; switch lb/kg in Settings.</div>
+
+  <nav class="tabs" role="tablist" aria-label="Main">
+    <button class="tab active" data-tab="log" role="tab">Log</button>
+    <button class="tab" data-tab="history" role="tab">History</button>
+    <button class="tab" data-tab="progress" role="tab">Progress</button>
+    <button class="tab" data-tab="settings" role="tab">Settings</button>
+  </nav>
+
+  <main>
+    <!-- LOG TAB -->
+    <section id="tab-log" class="tab-panel active" role="tabpanel">
+      <div class="card">
+        <div class="row">
+          <label for="date">Date</label>
+          <input type="date" id="date" />
+        </div>
+        <div class="row">
+          <label for="planDay">Plan</label>
+          <select id="planDay"></select>
+        </div>
+        <div class="row">
+          <label for="notes">Notes</label>
+          <textarea id="notes" placeholder="How did it feel? Any tweaks?" rows="2"></textarea>
+        </div>
+      </div>
+
+      <div id="exerciseList"></div>
+
+      <div class="actions">
+        <button id="addExercise">+ Add Exercise</button>
+        <button id="saveWorkout" class="primary">Save Workout</button>
+      </div>
+    </section>
+
+    <!-- HISTORY TAB -->
+    <section id="tab-history" class="tab-panel" role="tabpanel">
+      <div class="card">
+        <div class="row">
+          <label for="filterFrom">From</label>
+          <input type="date" id="filterFrom"/>
+        </div>
+        <div class="row">
+          <label for="filterTo">To</label>
+          <input type="date" id="filterTo"/>
+        </div>
+        <div class="row">
+          <label for="searchText">Search</label>
+          <input id="searchText" placeholder="exercise or note"/>
+        </div>
+        <div class="actions">
+          <button id="applyFilters">Apply</button>
+          <button id="clearFilters" class="ghost">Clear</button>
+        </div>
+      </div>
+      <div id="historyList"></div>
+    </section>
+
+    <!-- PROGRESS TAB -->
+    <section id="tab-progress" class="tab-panel" role="tabpanel">
+      <div class="grid-2">
+        <div class="card">
+          <h3>Streak</h3>
+          <div id="streakStat" class="stat">0 days</div>
+        </div>
+        <div class="card">
+          <h3>Workouts / Week</h3>
+          <div id="wkwStat" class="stat">0</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Volume (Last 6 Weeks)</h3>
+        <canvas id="volumeChart" width="360" height="180" aria-label="Weekly volume chart"></canvas>
+      </div>
+
+      <div class="card">
+        <h3>Personal Bests</h3>
+        <ul id="prList" class="list"></ul>
+      </div>
+    </section>
+
+    <!-- SETTINGS TAB -->
+    <section id="tab-settings" class="tab-panel" role="tabpanel">
+      <div class="card">
+        <h3>Units</h3>
+        <div class="row">
+          <label><input type="radio" name="units" value="lb" checked> Pounds (lb)</label>
+          <label><input type="radio" name="units" value="kg"> Kilograms (kg)</label>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Video Preferences</h3>
+        <div class="row">
+          <label for="videoChannel">Preferred channel</label>
+          <input id="videoChannel" placeholder="e.g., ATHLEAN-X, Jeff Nippard (optional)"/>
+        </div>
+        <div class="row">
+          <label>Per-exercise links</label>
+          <div class="video-map">
+            <input id="vmName" placeholder="Exercise name"/>
+            <input id="vmUrl" placeholder="https://..."/>
+            <button id="vmAdd">Add / Update</button>
+          </div>
+        </div>
+        <ul id="vmList" class="list small"></ul>
+      </div>
+
+      <div class="card">
+        <h3>Data</h3>
+        <div class="actions wrap">
+          <button id="exportData">Export JSON</button>
+          <label class="fileBtn">Import JSON<input type="file" id="importData" accept="application/json"></label>
+          <button id="resetData" class="danger">Reset All</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>About</h3>
+        <p>PF Tracker: 2‑week Push/Pull/Legs with core, primary + alternates, video links, last‑weight memory, and offline‑first PWA behavior.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <small>Offline capable • Your data stays on this device</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
