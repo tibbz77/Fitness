@@ -1,7 +1,7 @@
 {
   "name": "PF Tracker",
   "short_name": "PF Tracker",
-  "start_url": "/Fitness/",
+  
   "display": "standalone",
   "background_color": "#0b0b11",
   "theme_color": "#5b2dd8",
